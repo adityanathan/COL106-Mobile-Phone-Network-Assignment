@@ -3,7 +3,7 @@ class mylinkedlist
     protected node head;
     protected int size;
 
-    public void mylinkedlist()
+    mylinkedlist()
     {
         this.head=null;
         this.size=0;
@@ -13,6 +13,7 @@ class mylinkedlist
     {
         return this.size;
     }
+
 //mylinkedlist.contains - returns true if element present else false.
     public boolean contains(Object o)
     {
@@ -27,20 +28,6 @@ class mylinkedlist
         }
         return false;
     }
-
-    /*public boolean contains(int i)
-    {
-        node marker=this.head;
-        while(marker!=null)
-        {
-            if(marker.getId==i)
-            {
-                return true;
-            }
-            marker=marker.getNext();
-        }
-        return false;
-    }*/
 
     public void add(Object o)
     {
@@ -60,26 +47,7 @@ class mylinkedlist
         }
         this.size++;
     }
-//Overloaded function implemented in cas you want to add a node with an id/ name as required in performAction function.
-    /*public void add(Object o, int i)
-    {
-        node newest = new node(o);
-        newest.setId(i);
-        node marker=this.head;
-        if(marker==null)
-        {
-            this.head=newest;
-        }
-        else
-        {
-            while(marker.getNext()!=null)
-            {
-                marker=marker.getNext();
-            }
-            marker.setNext(newest);
-        }
-        this.size++;
-    }*/
+
 //mylinkedlist.remove - return true if element present and removed else return false.
     public boolean remove(Object o)
     {
@@ -120,6 +88,7 @@ class mylinkedlist
             return true;
         }
     }
+
 //mylinkedlist.get - return data element if present, else return null.
     public Object get(int i)
     {
@@ -141,20 +110,21 @@ class mylinkedlist
         return null;
     }
 
-    /*public Object getById(int i)
+    public mylinkedlist getUnion(mylinkedlist b)
     {
-        node marker = this.head;
-        while(marker!=null)
+        int i;
+        mylinkedlist result = new mylinkedlist();
+        for(i=0; i<this.getSize(); i++)
         {
-            if(marker.getId()==i)
+            result.add(this.get(i));
+        }
+        for(i=0; i<b.getSize(); i++)
+        {
+            if(!result.contains(b.get(i)))
             {
-                return marker.getData();
-            }
-            else
-            {
-                marker=marker.getNext();
+                result.add(b.get(i));
             }
         }
-        return null;
-    }*/
+        return result;
+    }
 }

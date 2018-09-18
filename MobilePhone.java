@@ -3,18 +3,20 @@ class MobilePhone
     protected int phoneNumber;
     protected boolean stat;
     private MobilePhoneSet set;
-    public static mylinkedlist all_phones=new mylinkedlist();
+    public static mylinkedlist all_phones = new mylinkedlist();
 
     MobilePhone(int number)
     {
         this.phoneNumber=number;
+        this.stat=false;
+        this.set=null;
         all_phones.add(this);
     }
     public int number()
     {
         return this.phoneNumber;
     }
-    public Boolean status()
+    public boolean status()
     {
         return this.stat;
     }
@@ -55,5 +57,18 @@ class MobilePhone
             }
         }
         return m;
+    }
+
+    public static boolean isPhoneThere(MobilePhone m)
+    {
+        int j;
+        for(j=0; j<all_phones.getSize(); j++)
+        {
+            if(all_phones.get(j)==m)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

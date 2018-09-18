@@ -33,12 +33,14 @@ class Exchange
 
     public void addChild(Exchange c)
     {
+        c.setParent(this);
         this.children.add(c);
         this.resident_set=this.residentSet();
     }
 
     public void removeChild(Exchange c)
     {
+        c.setParent(null);
         this.children.remove(c);
         this.resident_set=this.residentSet();
     }
@@ -112,5 +114,48 @@ class Exchange
             }
         }
         return p;
+    }
+
+    //exchangeUnion gets me a collection of all of this exchange's children in mylinkedlist type.
+    public mylinkedlist exchangeUnion()
+    {
+        mylinkedlist result=new mylinkedlist();
+
+        if(this.numChildren()>0)
+        {
+            for(int i=0; i<this.numChildren(); i++)
+            {
+                result=result.getUnion(this.child(i).exchangeUnion());
+                result.add(this.child(i));
+            }
+        }
+        return result;
+    }
+
+    //Searches all_exchanges for a.
+    public static boolean containsExchange(Exchange a)
+    {
+        int i;
+        for(i=0; i<all_exchanges.getSize(); i++)
+        {
+            if(all_exchanges.get(i)==a)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Calculates Depth of the exchange from the root.
+    public int depth()
+    {
+        if(this.getID()==0)
+        {
+            return 0;
+        }
+        else
+        {
+            return (1 + this.parent().depth());
+        }
     }
 }
